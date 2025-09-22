@@ -16,25 +16,28 @@ Useful if you want timed autosave without overwriting your original file.
 
 ## Usage
 
-Load the package in any notebook:
+To enable autosaving in a notebook, evaluate:
 
 ```
 Needs["Autosave`"]
-```
-
-Start autosaving (default = every 5 minutes, hidden file saved next to your notebook or in $TemporaryDirectory if unsaved):
-
-```
 StartAutosave[]
 ```
 
-Options:
+By default this saves a hidden backup every 5 mins (a single file that is overwritten each time).
+* If the notebook has been saved before, the backup is placed in the same directory.
+* If the notebook is still unsaved, the backup goes into $TemporaryDirectory.
+  
+If Wolfram Mathematica crashes, you can recover your work by opening the hidden `.MyNotebook.autosave.nb` file in that directory.
+
+## Advanced
+
+Options for `StartAutosave` function:
 
 ```
 StartAutosave[120]              (* autosave every 2 minutes *)  
 StartAutosave[300, "/tmp"]      (* autosave every 5 minutes into /tmp directory *)
 ```
-Check status:
+Check current status:
 
 ```
 AutosaveStatus[]
@@ -48,7 +51,6 @@ StopAutosave[]
 
 ## Notes
 
-- On macOS/Linux the backup file is hidden by a leading dot, e.g. .MyNotebook.autosave.nb  
-- On Windows the file is hidden using the attrib +H flag  
+- On macOS/Linux the backup file is hidden by a leading dot, e.g. .MyNotebook.autosave.nb, but on Windows the file is hidden just using the attrib +H flag and is saved without the leading dot.
 - The package stores state in global symbols ($AutosavePath, $AutosaveTask), so you can only run one autosave task per notebook session  
-- Only the notebook contents are saved, not kernel variables in memory  
+- Only the notebook contents are backed up, not kernel variables in memory  
