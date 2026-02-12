@@ -20,7 +20,6 @@ To enable autosaving in a notebook, evaluate:
 
 ```
 Needs["Autosave`"]
-StartAutosave[]
 ```
 
 By default this saves a hidden backup every 5 mins (a single file that is overwritten each time).
